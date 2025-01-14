@@ -14,7 +14,7 @@ import React from "react";
 
 const baseUrl = 'https://demo.react.email';
 
-const GithubAccessTokenEmail = ({ username }) => (
+const GithubAccessTokenEmail = ({ username = "Jake" }) => (
   <Html>
     <Head />
     <Preview>

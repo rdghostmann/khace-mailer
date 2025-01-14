@@ -1,46 +1,61 @@
 import nodemailer from 'nodemailer';
+import { NextResponse } from 'next/server';
 
-// Configure the nodemailer transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail', 
-  auth: {
-    user: process.env.SMTP_EMAIL,
-    pass: process.env.SMTP_PASSWORD,
-  },
-});
-
-// Named export for the POST method
 export async function POST(req) {
-  // Check if the request method is POST
-  if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ message: 'Method not allowed' }), {
-      status: 405,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
-
-  // Parse the JSON body of the request
-  const { to, subject, text } = await req.json(); // Ensure you're using 'text' instead of 'body'
-
   try {
+    // Parse the JSON body
+    const { to, name, fromEmail, subject, body, attachment } = await req.json();
+
+    // Validate input fields
+    if (!to || !name || !fromEmail || !subject || !body) {
+      return NextResponse.json(
+        { message: "All fields (to, name, fromEmail, subject, body) are required" },
+        { status: 400 }
+      );
+    }
+
+    // Configure nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
+
+    // Mail options
     const mailOptions = {
-      from: process.env.SMTP_EMAIL,
+      // from: `${name} <${fromEmail}>`, // Sender's name and email
+      from: `${name}`, // Sender's name and email
       to,
       subject,
-      text, // Changed to 'text'
+      html: `<p>${body}</p>`, // Use `html` for better formatting
+      attachments: attachment
+      ? [
+          {
+            filename: attachment.name,
+            content: attachment.data,
+            contentType: attachment.type,
+          },
+        ]
+      : [],
     };
 
+    // Send email
     const info = await transporter.sendMail(mailOptions);
-    console.log('Message sent:', info.messageId);
-    return new Response(JSON.stringify({ message: 'Email sent successfully', info }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+
+    // Success response
+    return NextResponse.json(
+      { message: "Email sent successfully", info: info.messageId },
+      { status: 200 }
+    );
   } catch (error) {
-    console.error('Error sending email:', error);
-    return new Response(JSON.stringify({ message: 'Error sending email', error }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    console.error("Error sending email:", error);
+
+    // Error response
+    return NextResponse.json(
+      { message: "Error sending email", error: error.message },
+      { status: 500 }
+    );
   }
 }
