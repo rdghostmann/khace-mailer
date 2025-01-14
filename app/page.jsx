@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { FaRegEdit } from "react-icons/fa";
+import { LuCornerDownRight } from "react-icons/lu";
+
 
 
 export default function Home() {
@@ -10,6 +12,9 @@ export default function Home() {
       <Link href="/testpage" className="flex space-x-2 items-center justify-center rounded-md bg-slate-700 text-white p-3"><FaRegEdit  />
       <span>Go to KhaceMailer</span></Link>
     
+    <div>
+    <Link target="_blank" href="https://khacemailer.vercel.app/canadacongratstemplate.html"> HTML Canada Congrats Template:<LuCornerDownRight /></Link>
+    </div>
 
   
     </main>
