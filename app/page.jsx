@@ -123,8 +123,8 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-between p-24">
       <h1>Welcome to noreply-Deskcheck GC </h1>
-      <Link href="/sendmail" className="bg-slate-700 text-white p-3"><FaRegEdit  />
-      Go to KhaceMailer</Link>
+      <Link href="/sendmail" className="flex space-x-2 bg-slate-700 text-white p-3"><FaRegEdit  />
+      <span>Go to KhaceMailer</span></Link>
 
       {/* <form action={send}>
         <button className="bg-green-600 p-2 rounded-sm mt-4 text-white" type="submit">Send email</button>
