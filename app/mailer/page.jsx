@@ -3,19 +3,24 @@ import Image from 'next/image';
 import HeaderImg from '../../public/government-of-canada.png'
 import FooterImg from '../../public/canada.png'
 
+import { MdOutgoingMail } from "react-icons/md";
+import { IoCaretBackOutline } from "react-icons/io5";
+
+
 import SendBtn from '@/components/SendBtn';
 import { compileCongratulationsTemplate, sendMail } from '@/lib/mail';
+import Link from 'next/link';
 
 
-  // const send = async () => {
-  //   "use server";
-  //   await sendMail({
-  //     to: "randalchukzwilson@gmail.com",
-  //     name: "notice@gc-deskcheck.com",
-  //     subject: "notice@gc-deskcheck.com",
-  //     body: compileCongratulationsTemplate("Ade"),
-  //   })
-  // };
+// const send = async () => {
+//   "use server";
+//   await sendMail({
+//     to: "@gmail.com",
+//     name: "notice@com",
+//     subject: "gc-deskcheck.com",
+//     body: compileCongratulationsTemplate("Ade"),
+//   })
+// };
 
 const send = async (formData) => {
   "use server";
@@ -40,8 +45,11 @@ const send = async (formData) => {
 const Page = () => {
 
   return (
-    <main className="flex flex-col items-center justify-center p-6">
-      <h1 className="text-2xl font-bold mb-4">Send Email</h1>
+    <main className="w-full max-w-md mx-auto flex flex-col items-center justify-center p-6">
+      <Link href="/" className="self-start">
+        <IoCaretBackOutline  fontSize={30} className="text-gray-600" />
+      </Link>
+      <h1 className="text-2xl flex items-center font-bold mb-4"><MdOutgoingMail /><span>Send Email</span></h1>
 
       <form action={send} method="post" className="w-full max-w-md">
         <div className="flex mb-4 space-x-2">

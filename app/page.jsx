@@ -1,8 +1,6 @@
 import DeskCheck from "@/components/DeskCheck-template";
 import Link from "next/link";
 import { FaRegEdit } from "react-icons/fa";
-import { LuCornerDownRight } from "react-icons/lu";
-
 
 
 export default function Home() {
