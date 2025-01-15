@@ -6,7 +6,7 @@ import FooterImg from '../public/canada.png'
 const DeskCheck = () => {
   return (
     <>
-      <div className="">
+      <div className="py-4">
         <header>
           <Image
             src={HeaderImg}

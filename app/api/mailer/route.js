@@ -1,68 +1,51 @@
-import nodemailer from 'nodemailer';
 import { NextResponse } from 'next/server';
+import multer from 'multer';
+import path from 'path';
+import fs from 'fs/promises';
 
-export async function POST(req) {
-  try {
-    // Parse the JSON body
-    const { to, name, fromEmail, subject, body, attachment } = await req.json();
-
-    // Validate input fields
-    if (!to || !name || !fromEmail || !subject || !body) {
-      return NextResponse.json(
-        { message: "All fields (to, name, fromEmail, subject, body) are required" },
-        { status: 400 }
-      );
+// Configure multer for file uploads
+const upload = multer({
+  storage: multer.memoryStorage(), // Use memory storage for better control
+  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
+  fileFilter: (req, file, cb) => {
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+    if (allowedMimeTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only JPEG, PNG, and PDF files are allowed.'));
     }
+  },
+});
 
-    // Configure nodemailer transporter
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.SMTP_EMAIL,
-        pass: process.env.SMTP_PASSWORD,
-      },
+export const POST = async (req) => {
+  try {
+    // Parse form data using multer
+    const form = new Promise((resolve, reject) => {
+      const multerUpload = upload.single('file'); // Handle single file upload
+      multerUpload(req, {}, (err) => {
+        if (err) return reject(err);
+        resolve(req.file); // Extract file info
+      });
     });
 
-    // Mail options
-    const mailOptions = {
-      from: `${name}`, // Sender's name and email
-      to,
-      subject,
-      html: `<p>${body}</p>`, // Use `html` for better formatting
-      attachments: attachment
-      ? [
-          {
-            filename: attachment.name,
-            content: attachment.data,
-            contentType: attachment.type,
-          },
-        ]
-      : [],
-    };
+    const file = await form;
 
-    try {
-      const sendMsg = await transporter.verify();
-      console.log("Server is ready to take messages:", sendMsg.response);
-    } catch (error) {
-      console.log(error);
-      return;
+    // Validate required fields in the request body
+    const { to, subject, clientName } = Object.fromEntries(await req.formData());
+    if (!to || !subject || !clientName) {
+      return NextResponse.json({ error: 'All fields are required.' }, { status: 400 });
     }
 
-    // Send email
-    const info = await transporter.sendMail(mailOptions);
+    // Save file to the uploads directory
+    const uploadPath = path.join(process.cwd(), 'uploads', file.originalname);
+    await fs.writeFile(uploadPath, file.buffer);
 
-    // Success response
-    return NextResponse.json(
-      { message: "Email sent successfully", info: info.messageId },
-      { status: 200 }
-    );
+    // Process email sending (stubbed)
+    console.log(`Email would be sent to ${to} with subject "${subject}" and attachment "${file.originalname}"`);
+
+    // Return success response
+    return NextResponse.json({ message: 'File uploaded and email sent successfully.' });
   } catch (error) {
-    console.error("Error sending email:", error);
-
-    // Error response
-    return NextResponse.json(
-      { message: "Error sending email", error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
-}
+};

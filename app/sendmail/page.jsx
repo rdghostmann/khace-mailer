@@ -12,6 +12,9 @@ import { compileCongratulationsTemplate, sendMail } from '@/lib/mail';
 import Link from 'next/link';
 import { revalidatePath } from 'next/cache';
 
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const send = async (formData) => {
   "use server";
@@ -48,6 +51,17 @@ const send = async (formData) => {
   });
 
   revalidatePath("/sendmail");
+  toast.success('Sent successfully!', { 
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+  });
 };
 
 const Page = () => {
@@ -151,6 +165,19 @@ const Page = () => {
           </footer>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </main>
   );
 };
