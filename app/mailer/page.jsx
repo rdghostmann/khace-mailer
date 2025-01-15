@@ -5,6 +5,7 @@ import FooterImg from '../../public/canada.png'
 
 import { MdOutgoingMail } from "react-icons/md";
 import { IoCaretBackOutline } from "react-icons/io5";
+import { TiAttachmentOutline } from "react-icons/ti";
 
 
 import SendBtn from '@/components/SendBtn';
@@ -117,14 +118,14 @@ const Page = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 mb-2 text-sm font-medium" htmlFor="attachment">
-            Attachment:
+          <label className="flex items-center space-x-2 cursor-pointer text-gray-700 mb-2 text-sm font-medium border border-gray-600 w-fit p-2 rounded-md" htmlFor="attachment">
+            <span>Upload Attachment:</span> <TiAttachmentOutline fontSize={25} />
           </label>
           <input
             type="file"
             id="attachment"
             name="attachment"
-            className="w-full p-2 border-b-2 border-slate-200"
+            className="w-full hidden p-2 border-b-2 border-slate-200"
             required
           />
         </div>
