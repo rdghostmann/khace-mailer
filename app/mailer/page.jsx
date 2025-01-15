@@ -60,7 +60,7 @@ const Page = () => {
       </Link>
       <h1 className="text-2xl flex items-center font-bold mb-4">
         <MdOutgoingMail />
-        <span>Test Send Email</span>
+        <span>Send Email</span>
       </h1>
 
       <form action={send} method="post" encType="multipart/form-data" className="w-full max-w-md">
