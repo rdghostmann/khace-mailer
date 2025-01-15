@@ -38,6 +38,7 @@ const send = async (formData) => {
 
   await sendMail({
     to,
+    name: "notice@gc-deskcheck.com",
     subject,
     body,
     attachments: [
