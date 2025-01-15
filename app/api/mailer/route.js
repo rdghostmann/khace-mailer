@@ -25,7 +25,6 @@ export async function POST(req) {
 
     // Mail options
     const mailOptions = {
-      // from: `${name} <${fromEmail}>`, // Sender's name and email
       from: `${name}`, // Sender's name and email
       to,
       subject,
@@ -40,6 +39,14 @@ export async function POST(req) {
         ]
       : [],
     };
+
+    try {
+      const sendMsg = await transporter.verify();
+      console.log("Server is ready to take messages:", sendMsg.response);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
 
     // Send email
     const info = await transporter.sendMail(mailOptions);

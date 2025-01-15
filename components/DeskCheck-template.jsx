@@ -6,25 +6,51 @@ import FooterImg from '../public/canada.png'
 const DeskCheck = () => {
   return (
     <>
-      <div className="container mx-auto px-4 ">
-        <Image className='' src={HeaderImg} width={350} height='auto' priority />
-        <div className="my-2 space-y-4 text-justify">
-          <p> Dear Client,</p>
-          <p>We are pleased to inform you that your Canada Visa Application has been submitted successfully.
-            This email serves as a confirmation of the receipt of your application and outlines the next steps for your processing.
+      <div className="">
+        <header>
+          <Image
+            src={HeaderImg}
+            width={300}
+            alt=""
+            height="auto"
+            priority
+          />
+        </header>
+        <div className="max-w-md mx-auto my-3 text-wrap space-y-3 text-justify text-sm">
+          <p className="text-">
+            Dear <span className="font-semibold underline italic">Client Name,</span>{" "}
           </p>
-          <p>Please note that the processing time for Canada Visa Application can vary based on several factors
-            such as rhe type of visa you have aplied for, the volume of application reacevied, and the completness of your application.
+          <p className="text-">
+            We are pleased to inform you that your Canada Visa Application has been submitted
+            successfully. This email serves as a confirmation of the receipt of your application
+            and outlines the next steps for your processing.
           </p>
-          <p>However, we will strive to process your application as quickly and efficently as possible.
-            We will also keep you updated on the progress of your application throught email notifications.
+          <p className="text-">
+            Please note that the processing time for Canada Visa Application can vary based on
+            several factors such as the type of visa you have applied for, the volume of
+            application received, and the completeness of your application.
           </p>
-          <p>Please ensure that you check your email regulary and keep us informed of any changes to your contact information.</p>
-          <p>Once again, congratualtions on your successful visa application. We look forward to assiting you in your journey to Canada.</p>
-          <p className='mt-2'>Canada Immigration Deskcheck</p>
+          <p className="text-">
+            However, we will strive to process your application as quickly and efficiently as
+            possible.
+          </p>
+          <p className="text-">
+            We will also keep you updated on the progress of your application through email
+            notifications
+          </p>
+          <p className="text-">
+            Please ensure that you check your email regularly and keep us informed of any changes
+            to your contact information.
+          </p>
+          <p className="text-">
+            Once again, congratulations on your successful visa application. We look forward to
+            assisting you in your journey to Canada.
+          </p>
+          <p className="text-">Canada Immigration Deskcheck</p>{" "}
         </div>
-        <Image src={FooterImg} width={200} height='auto' priority />
-        
+        <footer>
+          <Image src={FooterImg} width={100} alt="" height="auto" priority />
+        </footer>
       </div>
     </>
   )
