@@ -10,6 +10,7 @@ import { IoCaretBackOutline } from "react-icons/io5";
 import SendBtn from '@/components/SendBtn';
 import { compileCongratulationsTemplate, sendMail } from '@/lib/mail';
 import Link from 'next/link';
+import { revalidatePath } from 'next/cache';
 
 
 // const send = async () => {
@@ -40,6 +41,7 @@ const send = async (formData) => {
     subject,
     body,
   });
+  revalidatePath("/");
 };
 
 const Page = () => {

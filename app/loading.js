@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const Loading = () => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-transparent bg-opacity-50">
       <Image 
         src={loadingImg} 
         alt="Loading..." 
