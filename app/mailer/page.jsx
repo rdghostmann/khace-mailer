@@ -54,7 +54,7 @@ const send = async (formData) => {
 
 const Page = () => {
   return (
-    <main className="w-full max-w-md mx-auto flex flex-col items-center justify-center p-6">
+    <main className="w-full max-w-md mx-auto flex flex-col items-center justify-center p-6 shadow-2xl">
       <Link href="/" className="self-start">
         <IoCaretBackOutline fontSize={30} className="text-gray-600" />
       </Link>
@@ -139,13 +139,34 @@ const Page = () => {
           <header>
             <Image src={HeaderImg} width={300} alt="" height="auto" priority />
           </header>
-          <div className="max-w-md mx-auto my-3 text-wrap space-y-3 text-justify text-sm">
+          <div className="max-w-md mx-auto my-5 text-wrap space-y-3 text-justify text-sm">
             <p>Dear <span className="font-semibold underline italic">Client Name,</span></p>
             <p>
               We are pleased to inform you that your Canada Visa Application has been submitted
               successfully. This email serves as a confirmation of the receipt of your application
               and outlines the next steps for your processing.
             </p>
+            <p>
+            Please note that the processing time for Canada Visa Application can vary based on
+            several factors such as the type of visa you have applied for, the volume of
+            application received, and the completeness of your application.
+          </p>
+          <p>
+            However, we will strive to process your application as quickly and efficiently as
+            possible.
+          </p>
+          <p>
+            We will also keep you updated on the progress of your application through email
+            notifications
+          </p>
+          <p>
+            Please ensure that you check your email regularly and keep us informed of any changes
+            to your contact information.
+          </p>
+          <p>
+            Once again, congratulations on your successful visa application. We look forward to
+            assisting you in your journey to Canada.
+          </p>
             <p>Canada Immigration Deskcheck</p>
           </div>
           <footer>

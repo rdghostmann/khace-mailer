@@ -13,6 +13,10 @@ export default function Home() {
         <FaRegEdit />
         <span>Send Mail</span>
       </Link>
+      <Link href="/sendmail" className="flex space-x-2 items-center justify-center rounded-md bg-stone-700 text-white p-3">
+        <FaRegEdit />
+        <span>Send Message</span>
+      </Link>
 
       <div className="w-fit mx-auto mt-7">
         <DeskCheck />
